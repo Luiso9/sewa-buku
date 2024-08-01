@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php 
+<?php
 ob_start();
 ?>
 <page>
@@ -15,14 +15,14 @@ ob_start();
 			border-right: 0.5px solid darkgrey;
 		}
 		</style>
-		
+
 		<table border="0" align="center" style="font-size: 16px; border-collapse: collapse; width: 100%;">
 			<tr>
 				<td style="font-size: 14px; width: 90%;" align="center;"><b>RUMAH SAKIT</b></td>
-			
+
 				</tr>
 		<tr><td style="font-size: 14px; width: 90%;" align="center;"><b>RATU ZALECHA MATAPURA</b></td></tr>
-			
+
 			<tr><td style="font-size: 10px; width: 92%;" align="center;">Jalan Mentri Empat, Matapura, Banjar, Kalimantan Selatan 70714</td></tr>
 		</table>
 		<hr>
@@ -36,13 +36,13 @@ ob_start();
 			</tr>
 			</thead>
 		 <?php
-		 $no=1;
-         $mysqli= mysqli_connect("localhost","root","","db_pencernaan");
-   
-        $qupdate = "SELECT * FROM t_gejala ";
-        $rupdate = mysqli_query($mysqli, $qupdate);
-        while($dupdate = mysqli_fetch_assoc($rupdate)){
-       		?>
+$no     = 1;
+$mysqli = mysqli_connect("localhost", "root", "", "db_pencernaan");
+
+$qupdate = "SELECT * FROM t_gejala ";
+$rupdate = mysqli_query($mysqli, $qupdate);
+while ($dupdate = mysqli_fetch_assoc($rupdate)) {
+ ?>
 			<tbody>
 <tr>
 <td align="center">&nbsp;<?php echo $no ?>&nbsp;</td>
@@ -51,35 +51,35 @@ ob_start();
 </tr>
 </tbody>
 
-<?php $no++; } ?>
+<?php $no++;
+} ?>
 		</table>
-       
-		
+
+
 <p></p>
-	
 
 
-		
-		
+
+
+
 		<br />
         <p></p>
 		<?php
-		
-        ?>
-		
+
+?>
+
 </page>
 <?php
-    $content = ob_get_clean();
+$content = ob_get_clean();
 
 // conversion HTML => PDF
- require_once(dirname(__FILE__).'../../../html2pdf/html2pdf.class.php');
- try
- {
- $html2pdf = new HTML2PDF('P','A5', 'fr', false, 'ISO-8859-15');
+require_once dirname(__FILE__) . '../../../html2pdf/html2pdf.class.php';
+try
+{
+ $html2pdf = new HTML2PDF('P', 'A5', 'fr', false, 'ISO-8859-15');
  $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
  ob_end_clean();
  $html2pdf->Output();
- }
- catch(HTML2PDF_exception $e) { echo $e; }
+} catch (HTML2PDF_exception $e) {echo $e;}
 ?>
 </html>

@@ -1,5 +1,5 @@
 <?php
-include ("../admin/leftbar.php");
+include "../admin/leftbar.php";
 ?>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <div class="container mx-auto">
@@ -12,7 +12,7 @@ include ("../admin/leftbar.php");
 </div>
 
 <?php
-include ("../admin/footer.php");
+include "../admin/footer.php";
 ?>
 </body>
 

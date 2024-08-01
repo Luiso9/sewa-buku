@@ -6,9 +6,9 @@ switch ($act) {
     $qupdate = "SELECT * FROM t_daftar WHERE kd_daftar = '$kd_daftar'";
     $rupdate = mysqli_query($mysqli, $qupdate);
     $dupdate = mysqli_fetch_assoc($rupdate);
-?>
+    ?>
     <?php
-    include("../admin/leftbar.php");
+    include "../admin/leftbar.php";
     ?>
 
 
@@ -36,7 +36,9 @@ switch ($act) {
               <!-- PAGE CONTENT BEGINS -->
               <div class="row">
 
-                <form name="p_gejala" id="p_gejala" method="post" action="?unit=p_gejala_unit&act=proses&kd_daftar=<?php echo $dupdate['kd_daftar']; ?>" enctype="multipart/form-data">
+                <form name="p_gejala" id="p_gejala" method="post"
+                  action="?unit=p_gejala_unit&act=proses&kd_daftar=<?php echo $dupdate['kd_daftar']; ?>"
+                  enctype="multipart/form-data">
 
                   <div class="widget-box widget-color-red" id="widget-box-2">
                     <div class="widget-header">
@@ -73,9 +75,11 @@ switch ($act) {
                               $qdatagridk = '  SELECT * FROM t_kondisi ORDER by id ';
                               $rdatagridk = mysqli_query($mysqli, $qdatagridk);
                               while ($ddatagridk = mysqli_fetch_array($rdatagridk)) {
-                            ?>
-                                <option data-id="<?php echo $ddatagridk['id']; ?>" value="<?php echo $ddatagrid['kode_gejala'] . '_' . $ddatagridk['id']; ?>"><?php echo $ddatagridk['kondisi']; ?></option>
-                            <?php
+                                ?>
+                                <option data-id="<?php echo $ddatagridk['id']; ?>"
+                                  value="<?php echo $ddatagrid['kode_gejala'] . '_' . $ddatagridk['id']; ?>">
+                                  <?php echo $ddatagridk['kondisi']; ?></option>
+                                <?php
                               }
                               echo '</select></td>';
                             }
@@ -105,7 +109,7 @@ switch ($act) {
     </div><!-- /.main-content -->
 
     <?php
-    include("../admin/footer.php");
+    include "../admin/footer.php";
     ?>
     <!-- DATA TABLES SCRIPT -->
     <script src="../css/backend/js/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -124,7 +128,7 @@ switch ($act) {
     </body>
 
     </html>
-  <?php
+    <?php
 
     break;
 
@@ -244,12 +248,11 @@ switch ($act) {
 
     break;
 
-
   case "input":
-  ?>
+    ?>
 
     <?php
-    include("../admin/leftbar.php");
+    include "../admin/leftbar.php";
     ?>
     <div class="main-content">
       <div class="main-content-inner">
@@ -285,14 +288,16 @@ switch ($act) {
               $newID = $char . sprintf("%01s", $no_urut);
 
               ?>
-              <form class="form-horizontal" name="tambah_subkat" id="tambah_subkat" method="post" action="?unit=p_gejala_unit&act=inputact" enctype="multipart/form-data">
+              <form class="form-horizontal" name="tambah_subkat" id="tambah_subkat" method="post"
+                action="?unit=p_gejala_unit&act=inputact" enctype="multipart/form-data">
 
 
 
                 <div class="form-group">
                   <label class="col-sm-3 control-label no-padding-right">Kode Daftar</label>
                   <div class="col-sm-9">
-                    <input class="col-xs-10 col-sm-5" type="text" name="kd_daftar" id="kd_daftar" required="required" value="<?php echo "$newID"; ?>" readonly="" />
+                    <input class="col-xs-10 col-sm-5" type="text" name="kd_daftar" id="kd_daftar" required="required"
+                      value="<?php echo "$newID"; ?>" readonly="" />
                   </div>
                 </div>
 
@@ -338,7 +343,7 @@ switch ($act) {
 
     </div><!-- /.main-content -->
     <?php
-    include("../admin/footer.php");
+    include "../admin/footer.php";
     ?>
     <script type="text/javascript">
       var frmvalidator = new Validator("tambah_subkat");
@@ -354,7 +359,7 @@ switch ($act) {
     </html>
 
 
-  <?php
+    <?php
     break;
 
   case "inputact":
@@ -388,12 +393,12 @@ switch ($act) {
 
   case "update":
     $kd_daftar = $_GET['kd_daftar'];
-    $qupdate = "SELECT 
+    $qupdate = "SELECT
                            t_hasil.kd_hasil, t_hasil.tanggal, t_hasil.nilai_cf, t_hasil.hasil_id,t_hasil.kd_daftar,
 						   t_penyakit.kode_penyakit, t_penyakit.nm_penyakit, t_penyakit.penyebab,
 						   t_penyakit.pencegahan, t_penyakit.penanganan,
 						   t_daftar.kd_daftar, t_daftar.nm_pasien
-                            FROM 
+                            FROM
                                 t_hasil
                                     JOIN t_penyakit ON t_hasil.hasil_id = t_penyakit.kode_penyakit
 									JOIN t_daftar ON t_hasil.kd_daftar = t_daftar.kd_daftar
@@ -430,13 +435,13 @@ switch ($act) {
     }
 
     $kd_daftar = $_GET['kd_daftar'];
-    $sqlhasil = "SELECT 
+    $sqlhasil = "SELECT
                            t_hasil.kd_hasil, t_hasil.tanggal, t_hasil.nilai_cf, t_hasil.hasil_id,t_hasil.kd_daftar,
 						   t_hasil.penyakit, t_hasil.gejala,
 						   t_penyakit.kode_penyakit, t_penyakit.nm_penyakit, t_penyakit.penyebab,
 						   t_penyakit.pencegahan, t_penyakit.penanganan,
 						   t_daftar.kd_daftar, t_daftar.nm_pasien
-                            FROM 
+                            FROM
                                 t_hasil
                                     JOIN t_penyakit ON t_hasil.hasil_id = t_penyakit.kode_penyakit
 									JOIN t_daftar ON t_hasil.kd_daftar = t_daftar.kd_daftar
@@ -453,9 +458,9 @@ switch ($act) {
       $idpkt1[$np1] = $key1;
       $vlpkt1[$np1] = $value1;
     }
-  ?>
+    ?>
     <?php
-    include("../admin/leftbar.php");
+    include "../admin/leftbar.php";
     ?>
     <div class="main-content">
       <div class="main-content-inner">
@@ -474,10 +479,11 @@ switch ($act) {
           <div class="page-header">
             <h1>Data Hasil Konsultasi</h1>
           </div>
-          <h7>Berikut adalah hasil Konsultasi <?php echo $dupdate['nm_pasien']; ?>, Pada Tanggal <?php echo $dupdate['tanggal']; ?></h7>
+          <h7>Berikut adalah hasil Konsultasi <?php echo $dupdate['nm_pasien']; ?>, Pada Tanggal
+            <?php echo $dupdate['tanggal']; ?></h7>
           <div class="row">
             <div class="col-xs-12">
-              
+
 
               <div class="widget-box widget-color-red" id="widget-box-2">
                 <div class="widget-header">
@@ -559,7 +565,8 @@ switch ($act) {
                           $qdatagrid = " SELECT * FROM t_penyakit where kode_penyakit = '$key'";
                           $rdatagrid = mysqli_query($mysqli, $qdatagrid);
                           $ddatagrid = mysqli_fetch_array($rdatagrid);
-                          for ($ipl = 1; $ipl < count($idpkt); $ipl++);
+                          for ($ipl = 1; $ipl < count($idpkt); $ipl++)
+                            ;
                           echo '<tr><td>' . $np . '</td>';
                           echo "<td class=opsi > $ddatagrid[kd_penyakit]</td>";
                           echo "<td class=opsi > $ddatagrid[nm_penyakit]</td>";
@@ -599,8 +606,10 @@ switch ($act) {
               </div>
               <div class="clearfix form-actions">
                 <div class="col-md-offset-3 col-md-9">
-                  <a href="adminmainapp.php?unit=l_konsultasi&kd_daftar=<?php echo $kd_daftar; ?>" class='btn btn-sm btn-danger glyphicon glyphicon-print'> Print</a>
-                  <a href="adminmainapp.php?unit=p_gejala_unit&act=datagrid&kd_daftar=<?php echo $kd_daftar; ?>" class='btn btn-sm btn-info glyphicon'>Kembali</a> <br><br><br>
+                  <a href="adminmainapp.php?unit=l_konsultasi&kd_daftar=<?php echo $kd_daftar; ?>"
+                    class='btn btn-sm btn-danger glyphicon glyphicon-print'> Print</a>
+                  <a href="adminmainapp.php?unit=p_gejala_unit&act=datagrid&kd_daftar=<?php echo $kd_daftar; ?>"
+                    class='btn btn-sm btn-info glyphicon'>Kembali</a> <br><br><br>
                 </div>
               </div>
 
@@ -612,12 +621,12 @@ switch ($act) {
 
     </div><!-- /.main-content -->
     <?php
-    include("../admin/footer.php");
+    include "../admin/footer.php";
     ?>
     </body>
 
     </html>
 
-<?php
+    <?php
     break;
 }

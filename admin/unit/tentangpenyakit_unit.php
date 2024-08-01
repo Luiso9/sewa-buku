@@ -1,234 +1,122 @@
-<?php
-session_start();
-require_once '../lib/koneksi.php';
+<!DOCTYPE html>
+<html lang="en">
 
-$act = $_GET['act'];
-switch ($act) {
-  case "datagrid":
-?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Penyakit</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 z-0">
     <?php
-    include("../admin/leftbar.php");
-    ?>
-    <div class="main-content">
-      <div class="main-content-inner">
-        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
-          <ul class="breadcrumb">
-            <li>
-              <i class="ace-icon fa fa-home home-icon"></i>
-              <a href="adminmainapp.php?unit=dashboard">Dashboard</a>
-            </li>
-            <li>Data Master</li>
-            <li>Data Penyakit</li>
-          </ul><!-- /.breadcrumb -->
-        </div>
-        <div class="page-content">
-          <div class="page-header">
-            <h1>Tentang COVID-200
-            </h1>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-              <?php
-                  $data = mysqli_query($mysqli,"SELECT * FROM t_tentangpenyakit limit 1");
-                  $data = mysqli_fetch_assoc($data); 
-              ?>
-              <!-- PAGE CONTENT BEGINS -->
-              <dl class="row">
-                <dt class="col-sm-2">Nama Penyakit</dt>
-                <dd class="col-sm-10"><?=$data['nm_tentangpenyakit']?></dd>
+    session_start();
+    require_once '../lib/koneksi.php';
+    include ("../admin/leftbar.php");
 
-                <dt class="col-sm-2">Detail</dt>
-                <dd class="col-sm-10">
-                    <?= $data['det_tentangpenyakit'] ?>
-                </dd>
+    $act = $_GET['act'];
+    switch ($act) {
+        case "datagrid":
+            ?>
+            <div class="p-6">
+            <?php
+                include "../admin/component/breadcrumb.php";
+                ?>
 
-                <dt class="col-sm-2">Saran</dt>
-                <dd class="col-sm-10">
-                    <?= $data['srn_tentangpenyakit'] ?>
-                </dd>
-              </dl>
-              <!-- PAGE CONTENT ENDS -->
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-          <a href="?unit=tentangpenyakit_unit&act=update&kd_tentangpenyakit=<?=$data['kd_tentangpenyakit']?>" class='btn btn-sm btn-warning' >
-          <i class="glyphicon glyphicon-pencil"></i> Edit
-        </a> 
-          
-        </div><!-- /.page-content -->
-      </div>
-    </div><!-- /.main-content -->
-    <?php
-    include("../admin/footer.php");
-    ?>
-    <!-- DATA TABLES SCRIPT -->
-    <script src="../css/backend/js/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script src="../css/backend/js/jquery.dataTables.bootstrap.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-      function confirmDialog() {
-        return confirm('Apakah anda yakin?')
-      }
-      $('#datatable').dataTable({
-        "lengthMenu": [
-          [10, 25, 50, 100, 500, 1000, -1],
-          [10, 25, 50, 100, 500, 1000, "Semua"]
-        ]
-      });
-    </script>
-    </body>
-
-    </html>
-  <?php
-
-    break;
-  case "update":
-    $kd_tentangpenyakit = $_GET['kd_tentangpenyakit'];
-    $qupdate = "SELECT * FROM t_tentangpenyakit WHERE kd_tentangpenyakit = '$kd_tentangpenyakit'";
-    $rupdate = mysqli_query($mysqli, $qupdate);
-    $dupdate = mysqli_fetch_assoc($rupdate);
-  ?>
-
-    <?php
-    include("../admin/leftbar.php");
-    ?>
-
-    <div class="main-content">
-      <div class="main-content-inner">
-        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
-          <ul class="breadcrumb">
-            <li>
-              <i class="ace-icon fa fa-home home-icon"></i>
-              <a href="#">Beranda</a>
-            </li>
-            <li>Data Master</li>
-            <li>Edit Data Penyakit</li>
-          </ul><!-- /.breadcrumb -->
-        </div>
-
-        <div class="page-content">
-          <div class="page-header">
-            <h1>Edit Data Penyakit</h1>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-
-
-
-              <form class="form-horizontal" id="tambah_kat" name="tambah_kat" method="post" action="adminmainapp.php?unit=tentangpenyakit_unit&act=updateact">
-                  <input class="col-xs-10 col-sm-5" type="hidden" name="kd_tentangpenyakit" id="kd_tentangpenyakit" required="required" value="<?php echo $dupdate['kd_tentangpenyakit'] ?>" readonly="readonly" />
-                <div class="form-group">
-                  <label>Nama Penyakit :</label>
-                  <div>
-                    <input class="col-xs-10 col-sm-5" type="text" name="nm_tentangpenyakit" id="nm_tentangpenyakit" required="required" value="<?php echo $dupdate['nm_tentangpenyakit'] ?>" autofocus="autofocus" />
-                  </div>
+                <!-- Header -->
+                <div class="bg-white shadow-md rounded my-6">
+                    <div class="px-6 py-4 flex justify-between items-center border-b border-gray-200">
+                        <h2 class="text-xl font-semibold mx-4">Data Penyakit</h2>
+                    </div>
+                    <div class="p-4">
+                        <!-- <?php
+                        $data = mysqli_query($mysqli, "SELECT * FROM t_tentangpenyakit LIMIT 1");
+                        $data = mysqli_fetch_assoc($data);
+                        ?> -->
+                        <div action="" class="grid grid-cols-2 grid-rows-1 gap-1 mx-6">
+                            <a class="text-xl font-bold">Nama Penyakit</a>
+                            <p class="text-md"><?= $data['nm_tentangpenyakit'] ?></p>
+                            <p class="text-xl font-bold">Detail</p>
+                            <a class="text-md"><?= $data['det_tentangpenyakit'] ?></a>
+                            <p class="text-xl font-bold">Saran</p>
+                            <a class="text-md"><?= $data['srn_tentangpenyakit'] ?></a>
+                        </div>
+                        <a href="?unit=tentangpenyakit_unit&act=update&kd_tentangpenyakit=<?= $data['kd_tentangpenyakit'] ?>"
+                            class="bg-yellow-400 text-white px-4 py-2 rounded-md mt-4 inline-block shadow-md">
+                            Edit
+                        </a>
+                    </div>
                 </div>
+            </div>
+            <?php
+            break;
 
-                <div class="form-group">
-                  <label>Detail Tentang Penyakit :</label>
-                  <div>
-                    <textarea class="form-control limited" name="det_tentangpenyakit" id="det_tentangpenyakit"><?php echo $dupdate['det_tentangpenyakit'] ?> </textarea>
-                  </div>
+        case "update":
+            $kd_tentangpenyakit = $_GET['kd_tentangpenyakit'];
+            $qupdate = "SELECT * FROM t_tentangpenyakit WHERE kd_tentangpenyakit = '$kd_tentangpenyakit'";
+            $rupdate = mysqli_query($mysqli, $qupdate);
+            $dupdate = mysqli_fetch_assoc($rupdate);
+            ?>
+            <div class="p-6">
+                <div class="bg-white shadow-md rounded-lg">
+                    <div class="px-6 py-4 border-b">
+                        <h2 class="text-xl font-semibold">Edit Data Penyakit</h2>
+                    </div>
+                    <div class="p-4">
+                        <form class="space-y-4" method="post" action="adminmainapp.php?unit=tentangpenyakit_unit&act=updateact">
+                            <input type="hidden" name="kd_tentangpenyakit" id="kd_tentangpenyakit"
+                                value="<?= $dupdate['kd_tentangpenyakit'] ?>" readonly />
+                            <div>
+                                <label for="nm_tentangpenyakit" class="block text-gray-700">Nama Penyakit</label>
+                                <input type="text" name="nm_tentangpenyakit" id="nm_tentangpenyakit" required
+                                    value="<?= $dupdate['nm_tentangpenyakit'] ?>"
+                                    class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-200 focus:border-indigo-300" />
+                            </div>
+                            <div>
+                                <label for="det_tentangpenyakit" class="block text-gray-700">Detail Tentang Penyakit</label>
+                                <textarea name="det_tentangpenyakit" id="det_tentangpenyakit"
+                                    class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-200 focus:border-indigo-300"><?= $dupdate['det_tentangpenyakit'] ?></textarea>
+                            </div>
+                            <div>
+                                <label for="srn_tentangpenyakit" class="block text-gray-700">Saran Tentang Penyakit</label>
+                                <textarea name="srn_tentangpenyakit" id="srn_tentangpenyakit"
+                                    class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-200 focus:border-indigo-300"><?= $dupdate['srn_tentangpenyakit'] ?></textarea>
+                            </div>
+                            <div class="flex space-x-4">
+                                <button type="submit"
+                                    class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Simpan</button>
+                                <button type="reset"
+                                    class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">Batal</button>
+                                <button type="button"
+                                    onclick="window.location='adminmainapp.php?unit=tentangpenyakit_unit&act=datagrid'"
+                                    class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Kembali</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+            </div>
+            <?php
+            break;
 
-                <div class="form-group">
-                  <label for="srn_tentangpenyakit">Saran Tentang Penyakit :</label>
-                  <div>
-                    <textarea class="form-control limited" name="srn_tentangpenyakit" id="srn_tentangpenyakit"><?php echo $dupdate['srn_tentangpenyakit'] ?> </textarea>
-                  </div>
-                </div>
-
-
-
-
-                <div class="clearfix form-actions">
-                  <div class="col-md-offset-3 col-md-9">
-                    <button type="submit" name="submit" class="btn btn-success">Simpan</button>
-                    <button type="reset" name="reset" class="btn btn-danger">Batal</button>
-                    <button type="button" name="kembali" class="btn btn-info" onclick="window.location='adminmainapp.php?unit=tentangpenyakit_unit&act=datagrid'">kembali</button>
-                  </div>
-                </div>
-
-
-
-              </form>
-
-
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-        </div><!-- /.page-content -->
-      </div>
-
-    </div><!-- /.main-content -->
-    <?php
-    include("../admin/footer.php");
-    ?>
-
-    <script type="text/javascript">
-
-      tinymce.init({
-        selector: "textarea",
-
-        // ===========================================
-        // INCLUDE THE PLUGIN
-        // ===========================================
-
-        plugins: [
-          "advlist autolink lists link image charmap print preview anchor",
-          "searchreplace visualblocks code fullscreen",
-          "insertdatetime media table contextmenu paste jbimages"
-        ],
-
-        // ===========================================
-        // PUT PLUGIN'S BUTTON on the toolbar
-        // ===========================================
-
-        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages",
-
-        // ===========================================
-        // SET RELATIVE_URLS to FALSE (This is required for images to display properly)
-        // ===========================================
-
-        relative_urls: false,
-        remove_script_host: false,
-        convert_urls: true,
-
-      });
-    </script>
-    </body>
-
-    </html>
-<?php
-    break;
-
-  case "updateact":
-    $kd_tentangpenyakit = $_POST['kd_tentangpenyakit'];
-    $nm_tentangpenyakit = $_POST['nm_tentangpenyakit'];
-    $det_tentangpenyakit = $_POST['det_tentangpenyakit'];
-    $srn_tentangpenyakit = $_POST['srn_tentangpenyakit'];
-    // menyimpan nama file di variabel
-      $qupdate =
-        "
+        case "updateact":
+            $kd_tentangpenyakit = $_POST['kd_tentangpenyakit'];
+            $nm_tentangpenyakit = $_POST['nm_tentangpenyakit'];
+            $det_tentangpenyakit = $_POST['det_tentangpenyakit'];
+            $srn_tentangpenyakit = $_POST['srn_tentangpenyakit'];
+            $qupdate = "
                 UPDATE t_tentangpenyakit SET
-				nm_tentangpenyakit = '$nm_tentangpenyakit',
-				det_tentangpenyakit = '$det_tentangpenyakit',
-				srn_tentangpenyakit = '$srn_tentangpenyakit'
-                WHERE
-                kd_tentangpenyakit = '$kd_tentangpenyakit'
-                ";
+                    nm_tentangpenyakit = '$nm_tentangpenyakit',
+                    det_tentangpenyakit = '$det_tentangpenyakit',
+                    srn_tentangpenyakit = '$srn_tentangpenyakit'
+                WHERE kd_tentangpenyakit = '$kd_tentangpenyakit'
+            ";
+            $rupdate = mysqli_query($mysqli, $qupdate) or die(mysqli_error($mysqli));
+            header("location:adminmainapp.php?unit=tentangpenyakit_unit&act=datagrid");
+            break;
+    }
+    ?>
 
-    $rupdate = mysqli_query($mysqli, $qupdate) or die(mysqli_error($mysqli));
-    header("location:?unit=tentangpenyakit_unit&act=datagrid");
-    break;
 
-  case "delete":
-    $kd_tentangpenyakit = $_GET['kd_tentangpenyakit'];
-    $qdelete = "
-          DELETE  FROM t_tentangpenyakit
-       
-          WHERE
-            kd_tentangpenyakit = '$kd_tentangpenyakit'
-        ";
+</body>
 
-    $rdelete = mysqli_query($mysqli, $qdelete);
-    header("location:?unit=tentangpenyakit_unit&act=datagrid");
-    break;
-}
+</html>
