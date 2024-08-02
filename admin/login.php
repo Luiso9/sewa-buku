@@ -35,7 +35,7 @@ session_start();
   <div class="w-full max-w-md">
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="post" action="loginnaction.php"
       onsubmit="return validasi(this)">
-      <h2 class="mb-4 text-2xl font-bold text-center">Login</h2>
+      <h2 class="mb-4 text-2xl font-bold text-center">Cina dilarang login!</h2>
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="nm_pengguna">
           Nama Pengguna

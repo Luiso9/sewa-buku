@@ -1,10 +1,11 @@
 <?php
-function generateBreadcrumb($currentPath) {
+function generateBreadcrumb($currentPath)
+{
     $breadcrumbs = [
         'dashboard' => ['Home', 'adminmainapp.php?unit=dashboard'],
         'gejala_unit' => ['Data Master', 'adminmainapp.php?unit=gejala_unit&act=datagrid'],
         'tentangpenyakit_unit' => ['Data tentang', 'adminmainapp.php?unit=tentangpenyakit_unit&act=datagrid'],
-        'dpb_unit'=> ['Basis Pengetahuan','adminmainapp.php?unit=dbp_unit&act=datagrid'],
+        'dbp_unit' => ['Basis Pengetahuan', 'adminmainapp.php?unit=dbp_unit&act=datagrid'],
     ];
 
     $breadcrumbItems = explode('/', trim($currentPath, '/'));
@@ -21,6 +22,17 @@ function generateBreadcrumb($currentPath) {
         }
     }
 
+    // Add breadcrumbs for parent pages
+    $parentBreadcrumbs = array_reverse($breadcrumbTrail);
+    array_shift($parentBreadcrumbs); // Remove the current page breadcrumb
+
+    foreach ($parentBreadcrumbs as $parentBreadcrumb) {
+        $breadcrumbTrail[] = [
+            'label' => $parentBreadcrumb['label'],
+            'link' => '#' // Set the link to '#' for parent pages
+        ];
+    }
+
     return $breadcrumbTrail;
 }
 
@@ -33,36 +45,36 @@ $breadcrumbTrail = generateBreadcrumb($currentPath);
 <nav class="flex z-100" aria-label="Breadcrumb">
     <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
         <?php foreach ($breadcrumbTrail as $index => $breadcrumb): ?>
-            <?php if ($index === count($breadcrumbTrail) - 1): ?>
-                <li aria-current="page">
-                    <div class="flex items-center">
-                        <?php if ($index !== 0): ?>
-                            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m1 9 4-4-4-4" />
-                            </svg>
-                        <?php endif; ?>
-                        <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">
-                            <?php echo $breadcrumb['label']; ?>
-                        </span>
-                    </div>
-                </li>
-            <?php else: ?>
-                <li class="inline-flex items-center">
-                    <?php if ($index !== 0): ?>
-                        <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" d="m1 9 4-4-4-4" />
-                        </svg>
-                    <?php endif; ?>
-                    <a href="<?php echo $breadcrumb['link']; ?>"
-                        class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-                        <?php echo $breadcrumb['label']; ?>
-                    </a>
-                </li>
-            <?php endif; ?>
+                <?php if ($index === count($breadcrumbTrail) - 1): ?>
+                        <li aria-current="page">
+                            <div class="flex items-center">
+                                <?php if ($index !== 0): ?>
+                                        <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="m1 9 4-4-4-4" />
+                                        </svg>
+                                <?php endif; ?>
+                                <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">
+                                    <?php echo $breadcrumb['label']; ?>
+                                </span>
+                            </div>
+                        </li>
+                <?php else: ?>
+                        <li class="inline-flex items-center">
+                            <?php if ($index !== 0): ?>
+                                    <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m1 9 4-4-4-4" />
+                                    </svg>
+                            <?php endif; ?>
+                            <a href="<?php echo $breadcrumb['link']; ?>"
+                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                                <?php echo $breadcrumb['label']; ?>
+                            </a>
+                        </li>
+                <?php endif; ?>
         <?php endforeach; ?>
     </ol>
 </nav>

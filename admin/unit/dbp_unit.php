@@ -11,10 +11,10 @@ switch ($act) {
             ?>
 
             <!-- Form Content -->
-            <div class="container mx-auto">
-                <div class="relative overflow-x-auto my-10">
-                    <table id="datatable" class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-md text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <div class="py-6">
+                <div class="relative overflow-x-auto sm:rounded-md">
+                    <table id="datatable" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xl text-white uppercase bg-green-900 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">No.</th>
                                 <th scope="col" class="px-6 py-3">Gejala</th>
@@ -29,7 +29,7 @@ switch ($act) {
                             $rdatagrid = mysqli_query($mysqli, $qdatagrid);
                             while ($ddatagrid = mysqli_fetch_assoc($rdatagrid)) {
                                 echo "
-                        <tr class='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
+                        <tr class='bg-white text-xl md:text-md border-b dark:bg-gray-800 dark:border-gray-700'>
                             <td scope='row' class='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>$no</td>
                             <td class='px-6 py-4'>$ddatagrid[nm_gejala]</td>
                             <td class='px-6 py-4'>$ddatagrid[cf_gejala]</td>
@@ -46,7 +46,7 @@ switch ($act) {
                     </table>
 
                     <!-- Pagination -->
-                    <div class="flex justify-between items-center mt-4">
+                    <div class="flex justify-between items-center mx-4 my-6">
                         <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-l">
                             Prev
                         </button>
